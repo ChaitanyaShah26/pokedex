@@ -39,3 +39,18 @@
 .pokemon-card:hover .corner-circle {
   transform: scale(1.4);
 }
+
+.types {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.types span {
+    width: 80px;
+    height: fit-content;
+    border-radius: 20px;
+    background-color: yellow;
+}
