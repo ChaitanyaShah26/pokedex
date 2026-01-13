@@ -10,7 +10,10 @@ function App() {
     <>
       <Header/>
       <main>
-        
+        <GridCard name={"Pikachu"} idNum={"001"}/>
+        <GridCard name={"Raichu"} idNum={"002"}/>
+        <GridCard name={"Charizard"} idNum={"003"}/>
+        <GridCard name={"Greninja"} idNum={"004"}/>
       </main>
       <footer>
         Made by&nbsp;  
