@@ -1,0 +1,46 @@
+@font-face {
+	font-family: "Pokemon";
+	src: url("./pokemon-solid.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    height: fit-content;
+    z-index: 10;
+    background-color: rgba(4, 12, 24, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#header-logo {
+    margin: 4px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+#header-logo:hover {
+    filter: drop-shadow(0 0 10px #410d81);
+}
+
+#header-logo img {
+    width: 32px;
+    height: 32px;
+}
+
+#header-logo p {
+    font-family: "Pokemon";
+    font-size: 1.2em;
+    color: whitesmoke;
+}
