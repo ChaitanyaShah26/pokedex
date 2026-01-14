@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { TYPES_COLORS } from './constants';
 
 const URL = "https://pokeapi.co/api/v2";
 
@@ -13,7 +14,7 @@ function App() {
 
   for(let i=1; i<10; i++) {
             cards.push(
-              <GridCard name={"Pokemon"} idNum={i}/>
+              <GridCard name={"Pokemon"} idNum={i} type1={'Dark'} type2={'Ghost'}/>
             )
           }
 
