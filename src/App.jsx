@@ -5,6 +5,8 @@ import Header from './components/Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
+const URL = "https://pokeapi.co/api/v2";
+
 function App() {
 
   const cards = []
