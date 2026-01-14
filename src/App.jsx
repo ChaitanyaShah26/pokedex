@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GridCard from './components/gridCard';
 import './App.css';
 import Header from './components/Header';
@@ -10,13 +10,54 @@ const URL = "https://pokeapi.co/api/v2";
 
 function App() {
 
-  const cards = []
+  const [pokemonList, setPokemonList] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  for(let i=1; i<10; i++) {
-            cards.push(
-              <GridCard name={"Pokemon"} idNum={i} type1={'Dark'} type2={'Ghost'}/>
-            )
-          }
+  const fetchPokemon = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch (`${URL}/pokemon?limit=20&offset=${offset}`);
+
+      if(!response.ok) {
+        throw new Error("Failed to fetch Pokémon List!");
+      }
+
+      const data = await response.json();
+
+      const pokemonDetails = await Promise.all(
+        data.results.map(async (pokemon) => {
+          const res = await fetch(pokemon.url);
+          const details = await res.json();
+
+          return {
+            id: details.id,
+            name: details.name,
+            types: details.types.map((t) => t.type.name),
+            image: details.sprites.other["official-artwork"].front_default,
+          };
+        })
+      );
+
+      setPokemonList((prev) => [...prev, ...pokemonDetails]);
+      setOffset((prev) => prev + 20);
+
+    }
+    catch(err) {
+      setError(err.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchPokemon();
+  },[]);
+
 
   return (
     <>
@@ -24,12 +65,11 @@ function App() {
       <main>
         <h2>All Pokemons</h2>
         <div className='grid'>
-          {cards}
+          {pokemonList.map((pokemon) => (
+            <GridCard key={pokemon.id} pokemon={pokemon} />
+          ))}
         </div>
-        {/* <GridCard name={"Pikachu"} idNum={"001"}/>
-        <GridCard name={"Raichu"} idNum={"002"}/>
-        <GridCard name={"Charizard"} idNum={"003"}/>
-        <GridCard name={"Greninja"} idNum={"004"}/> */}
+
       </main>
       <footer>
         Made by&nbsp;  
