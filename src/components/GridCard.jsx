@@ -22,4 +22,3 @@ function GridCard({name, idNum})
 }
 
 export default GridCard;
-

@@ -1,5 +1,6 @@
 .pokemon-card {
     padding: 20px;
+    cursor: pointer;
     background-color: rgba(4, 12, 24, 0.6);;
     border: 1px solid whitesmoke;
     border-radius: 20px;
@@ -11,6 +12,10 @@
     color: white;
     backdrop-filter: blur(16px);
     overflow: hidden;
+    transition: transform 0.4s ease-in-out;
+}
+.pokemon-card:hover {
+    transform: translateY(-4px);
 }
 
 .pokemon-card h4 {
@@ -33,7 +38,7 @@
     right: -50px;
     background-color: #A8A77A;
     opacity: 0.12;
-    transition: transform 0.6s ease;
+    transition: transform 0.6s ease-in-out;
 }
 
 .pokemon-card:hover .corner-circle {
@@ -51,6 +56,10 @@
 .types span {
     width: 80px;
     height: fit-content;
+    padding: 2px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: black;
     border-radius: 20px;
     background-color: yellow;
 }

@@ -6,14 +6,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 function App() {
+
+  const cards = []
+
+  for(let i=1; i<10; i++) {
+            cards.push(
+              <GridCard name={"Pokemon"} idNum={i}/>
+            )
+          }
+
   return (
     <>
       <Header/>
       <main>
-        <GridCard name={"Pikachu"} idNum={"001"}/>
+        {cards}
+        {/* <GridCard name={"Pikachu"} idNum={"001"}/>
         <GridCard name={"Raichu"} idNum={"002"}/>
         <GridCard name={"Charizard"} idNum={"003"}/>
-        <GridCard name={"Greninja"} idNum={"004"}/>
+        <GridCard name={"Greninja"} idNum={"004"}/> */}
       </main>
       <footer>
         Made by&nbsp;  
