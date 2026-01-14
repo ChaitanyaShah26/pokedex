@@ -21,7 +21,10 @@ function App() {
     <>
       <Header/>
       <main>
-        {cards}
+        <h2>All Pokemons</h2>
+        <div className='grid'>
+          {cards}
+        </div>
         {/* <GridCard name={"Pikachu"} idNum={"001"}/>
         <GridCard name={"Raichu"} idNum={"002"}/>
         <GridCard name={"Charizard"} idNum={"003"}/>

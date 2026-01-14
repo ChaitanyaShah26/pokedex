@@ -2,7 +2,6 @@
     padding: 20px;
     cursor: pointer;
     background-color: rgba(4, 12, 24, 0.6);;
-    border: 1px solid whitesmoke;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -38,7 +37,7 @@
     right: -50px;
     background-color: #A8A77A;
     opacity: 0.12;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.4s ease-in-out;
 }
 
 .pokemon-card:hover .corner-circle {
