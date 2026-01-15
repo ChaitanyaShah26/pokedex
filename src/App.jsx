@@ -7,6 +7,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { TYPES_COLORS } from './constants';
 import LoadMoreButton from './components/LoadMore';
+import InfoCard from './components/InfoCard';
 
 const URL = "https://pokeapi.co/api/v2";
 const LIMIT = 20;
@@ -17,6 +18,8 @@ function App() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   const fetchPokemon = async () => {
     try {
@@ -67,15 +70,20 @@ function App() {
       <Header/>
       <main>
         <h2>All Pokemons</h2>
-
-        {error && <p className="error"> <b><FaExclamationTriangle/> Error</b> <br/> {error}</p>}
         
+        <InfoCard URL={URL} pokemonName={selectedPokemon} onClose={() => setSelectedPokemon(null)}/>
+
         <div className='grid'>
           {pokemonList.map((pokemon) => (
-            <GridCard key={pokemon.id} pokemon={pokemon} />
+            <GridCard 
+              key={pokemon.id} 
+              pokemon={pokemon} 
+              onClick={() => setSelectedPokemon(pokemon.name)}
+            />
           ))}
         </div>
         
+        {error && <p className="error"> <b><FaExclamationTriangle/> Error</b> <br/> {error}</p>}
         <LoadMoreButton onClick={fetchPokemon} loading={loading}/>
 
       </main>

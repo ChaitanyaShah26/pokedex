@@ -1,9 +1,7 @@
 import './GridCard.css';
 import {TYPES_COLORS} from '../constants.jsx';
 
-
-
-function GridCard({pokemon})
+function GridCard({pokemon, onClick})
 {   
     const PokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     const PokeId = pokemon.id;
@@ -15,7 +13,7 @@ function GridCard({pokemon})
 
     return (
     <>
-        <div className='pokemon-card'>
+        <div className='pokemon-card' onClick={onClick}>
             <div className='corner-circle' style={{backgroundColor: typeColor1}}></div>
             <h4>#{PokeId}</h4>
             <img src={image} alt={PokemonName}></img>
