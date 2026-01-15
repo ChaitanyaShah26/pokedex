@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { TYPES_COLORS } from './constants';
+import LoadMoreButton from './components/LoadMore';
 
 const URL = "https://pokeapi.co/api/v2";
 const LIMIT = 20;
@@ -75,6 +76,8 @@ function App() {
           ))}
         </div>
         
+        <LoadMoreButton onClick={fetchPokemon} loading={loading}/>
+
       </main>
       <footer>
         Made by&nbsp;  

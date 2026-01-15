@@ -1,0 +1,21 @@
+.load-more-btn {
+  padding: 12px 28px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 30px;
+  border: 2px solid #040c18;
+  background-color: rgba(4, 12, 24, 0.4);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.load-more-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
