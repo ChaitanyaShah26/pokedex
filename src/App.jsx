@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FaExclamationTriangle } from 'react-icons/fa';
 import { TYPES_COLORS } from './constants';
 
 const URL = "https://pokeapi.co/api/v2";
@@ -65,12 +66,15 @@ function App() {
       <Header/>
       <main>
         <h2>All Pokemons</h2>
+
+        {error && <p className="error"> <b><FaExclamationTriangle/> Error</b> <br/> {error}</p>}
+        
         <div className='grid'>
           {pokemonList.map((pokemon) => (
             <GridCard key={pokemon.id} pokemon={pokemon} />
           ))}
         </div>
-
+        
       </main>
       <footer>
         Made by&nbsp;  
