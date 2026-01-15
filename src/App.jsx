@@ -7,6 +7,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { TYPES_COLORS } from './constants';
 
 const URL = "https://pokeapi.co/api/v2";
+const LIMIT = 20;
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch (`${URL}/pokemon?limit=20&offset=${offset}`);
+      const response = await fetch (`${URL}/pokemon?limit=${LIMIT}&offset=${offset}`);
 
       if(!response.ok) {
         throw new Error("Failed to fetch Pokémon List!");
@@ -43,7 +44,7 @@ function App() {
       );
 
       setPokemonList((prev) => [...prev, ...pokemonDetails]);
-      setOffset((prev) => prev + 20);
+      setOffset((prev) => prev + LIMIT);
 
     }
     catch(err) {
