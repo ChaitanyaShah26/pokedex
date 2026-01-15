@@ -4,9 +4,9 @@
   font-weight: bold;
   border-radius: 30px;
   border: 2px solid #040c18;
-  background-color: rgba(4, 12, 24, 0.4);
+  background-color: rgba(169, 200, 246, 0.4);
   backdrop-filter: blur(10px);
-  color: white;
+  color: #040c18;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }

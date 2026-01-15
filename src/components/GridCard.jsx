@@ -8,7 +8,7 @@ function GridCard({pokemon, onClick})
     const image = pokemon.image;
     const type1 = pokemon.types[0].charAt(0).toUpperCase() + pokemon.types[0].slice(1);
     const type2 = pokemon.types[1] && pokemon.types[1].charAt(0).toUpperCase() + pokemon.types[1].slice(1);
-    const typeColor1 = TYPES_COLORS[type1?.toLowerCase()]
+    const typeColor1 = TYPES_COLORS[type1?.toLowerCase()];
     const typeColor2 = type2 ? TYPES_COLORS[type2.toLowerCase()]:null;
 
     return (
