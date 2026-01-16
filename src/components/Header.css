@@ -17,8 +17,9 @@ header {
     background-color: rgba(4, 12, 24, 0.8);
     backdrop-filter: blur(10px);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #header-logo {

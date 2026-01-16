@@ -21,6 +21,9 @@ function App() {
 
   const [selectedPokemon, setSelectedPokemon] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+
   const fetchPokemon = async () => {
     try {
       setLoading(true);
@@ -65,16 +68,58 @@ function App() {
   },[]);
 
 
+  useEffect(() => {
+    if (!searchTerm) {
+      setSearchResult(null);
+      return;
+    }
+
+    const found = pokemonList.find(
+      (p) => p.name.toLowerCase() === searchTerm.toLowerCase()
+    );
+    if (found) {
+      setSearchResult(found);
+    } else {
+      const fetchSinglePokemon = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const res = await fetch(`${URL}/pokemon/${searchTerm.toLowerCase()}`);
+          if (!res.ok) throw new Error("Pokémon not found!");
+          const details = await res.json();
+          const pokemonData = {
+            id: details.id,
+            name: details.name,
+            types: details.types.map((t) => t.type.name),
+            image: details.sprites.other["official-artwork"].front_default,
+          };
+          setSearchResult(pokemonData);
+        } catch (err) {
+          setSearchResult(null);
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchSinglePokemon();
+    }
+  }, [searchTerm, pokemonList]);
+
+  const displayList = searchResult ? [searchResult] : pokemonList;
+
+
   return (
     <>
-      <Header/>
+      <Header
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
       <main>
         <h2>All Pokemons</h2>
-        
-        {/* <InfoCard URL={URL} pokemonName={selectedPokemon} onClose={() => setSelectedPokemon(null)}/> */}
 
         <div className='grid'>
-          {pokemonList.map((pokemon) => (
+          {displayList.map((pokemon) => (
             <GridCard 
               key={pokemon.id} 
               pokemon={pokemon} 

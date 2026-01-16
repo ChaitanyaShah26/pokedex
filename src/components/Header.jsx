@@ -1,7 +1,9 @@
 import './Header.css';
+import SearchBar from './SearchBar';
 
-function Header()
-{
+function Header({searchTerm, onSearchChange})
+{    
+
     return (
     <>
         <header>
@@ -9,6 +11,10 @@ function Header()
                 <img src="./pokedex.png"></img>
                 <p>Pokédex</p>
             </div>
+            <SearchBar
+                searchTerm={searchTerm}
+                onSearchChange={onSearchChange}
+            />
         </header>
     </>
     )
