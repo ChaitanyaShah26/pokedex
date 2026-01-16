@@ -5,81 +5,102 @@ import { TYPES_COLORS } from "../constants";
 
 function InfoCard({ URL, pokemonName, onClose }) {
 
+  const [pokemon, setPokemon] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!pokemonName) return;
+    
+    const fetchPokemonInfo = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${URL}/pokemon/${pokemonName}`);
+        const data = await res.json();
+
+        setPokemon({
+          name: data.name,
+          image: data.sprites.other["official-artwork"].front_default,
+          height: data.height,
+          weight: data.weight,
+          types: data.types.map(t => t.type.name),
+          stats: data.stats.map(
+            s => (
+              {
+                name: s.stat.name,
+                value: s.base_stat
+              }
+            )
+          )
+        }
+        );
+      }
+      catch {
+        console.error(err);
+      }
+      finally {
+        setLoading(false);
+      }
+    };
+    fetchPokemonInfo();
+  },
+  [pokemonName, URL]
+  );
+
+  if (loading || !pokemon) return null;
+
   return (
     <>
+    <div className="overlay">
         <div className="info-card">
-            <button className="close">
+            <button className="close" onClick={onClose}>
               x
             </button>
-            <div className="img-panel">
+
+            <div className="img-panel" style={{ backgroundColor: TYPES_COLORS[pokemon.types[0]] }}>
               <div className="bg-ring"></div>
-              <h3>Charizard</h3>
+              <h3>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
               <div className='types'>
-                  <span style={{backgroundColor: TYPES_COLORS['fire']}}>
-                      Fire
-                  </span>
-                  <span style={{ backgroundColor: TYPES_COLORS['flying'] }}>
-                      Flying
-                  </span>
+                  {pokemon.types.map(type => (
+                    <span
+                      key={type}
+                      style={{ backgroundColor: TYPES_COLORS[type] }}
+                    >
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </span>
+                  ))}
               </div>
-              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"></img>
+              <img src={pokemon.image} alt={pokemon.name}></img>
             </div>
             
             <div className="info-panel">
               <div className="info">
                 <p>Height<br/>
-                  <span>1.7m</span>
+                  <span>{pokemon.height} m</span>
                 </p>
-                <p>Mass<br/>
-                  <span>90.5kg</span>
+                <p>Weight<br/>
+                  <span>{pokemon.weight} kg</span>
                 </p>
               </div>
               
               <div className="stats">
                 <h5>Stats</h5>
-                <div className="stat-item">
-                  <span className="stat-name">HP</span>
-                  <div className="stat-bar">
-                    <div className="stat-value" style={{"--value":"80%"}}></div>
-                  </div>
-                  <span className="stat-num">80</span>
-                </div>
-
-                <div className="stat-item">
-                  <span className="stat-name">HP</span>
-                  <div className="stat-bar">
-                    <div className="stat-value" style={{"--value":"80%"}}></div>
-                  </div>
-                  <span className="stat-num">80</span>
-                </div>
-
-                <div className="stat-item">
-                  <span className="stat-name">HP</span>
-                  <div className="stat-bar">
-                    <div className="stat-value" style={{"--value":"80%"}}></div>
-                  </div>
-                  <span className="stat-num">80</span>
-                </div>
-
-                <div className="stat-item">
-                  <span className="stat-name">HP</span>
-                  <div className="stat-bar">
-                    <div className="stat-value" style={{"--value":"76%"}}></div>
-                  </div>
-                  <span className="stat-num">80</span>
-                </div>
-
-                <div className="stat-item">
-                  <span className="stat-name">HP</span>
-                  <div className="stat-bar">
-                    <div className="stat-value" style={{"--value":"25%"}}></div>
-                  </div>
-                  <span className="stat-num">80</span>
-                </div>
+                 {pokemon.stats.map(stat => (
+                    <div className="stat-item" key={stat.name}>
+                      <span className="stat-name">{stat.name.replace("-"," ").toUpperCase()}</span>
+                      <div className="stat-bar">
+                        <div
+                          className="stat-value"
+                          style={{ "--value": `${stat.value}%`, backgroundColor: TYPES_COLORS[pokemon.types[0]]  }}
+                        ></div>
+                      </div>
+                      <span className="stat-num">{stat.value}</span>
+                    </div>
+                  ))}
 
               </div>
             </div>
         </div>
+      </div>
     </>
   );
 }

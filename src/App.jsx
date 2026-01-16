@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import GridCard from './components/gridCard';
+import GridCard from './components/GridCard';
 import './App.css';
 import Header from './components/Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -71,7 +71,7 @@ function App() {
       <main>
         <h2>All Pokemons</h2>
         
-        <InfoCard URL={URL} pokemonName={selectedPokemon} onClose={() => setSelectedPokemon(null)}/>
+        {/* <InfoCard URL={URL} pokemonName={selectedPokemon} onClose={() => setSelectedPokemon(null)}/> */}
 
         <div className='grid'>
           {pokemonList.map((pokemon) => (
@@ -82,6 +82,14 @@ function App() {
             />
           ))}
         </div>
+
+        {selectedPokemon && (
+          <InfoCard
+            URL={URL}
+            pokemonName={selectedPokemon}
+            onClose={() => setSelectedPokemon(null)}
+          />
+        )}
         
         {error && <p className="error"> <b><FaExclamationTriangle/> Error</b> <br/> {error}</p>}
         <LoadMoreButton onClick={fetchPokemon} loading={loading}/>
